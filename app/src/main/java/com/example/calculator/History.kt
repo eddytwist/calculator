@@ -1,7 +1,11 @@
 package com.example.calculator
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Parcelize
-data class History (val result: String?) : Parcelable
+@Entity
+data class History (@ColumnInfo(name = "result") val result: String) {
+    @PrimaryKey(autoGenerate = true)
+    var uid: Int = 0
+}
