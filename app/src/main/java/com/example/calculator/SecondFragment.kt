@@ -41,7 +41,7 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //var answer = arguments?.getParcelable<WrapperHistory>(MAIN_PARCELABLE)
+
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(requireContext())
     }

@@ -10,12 +10,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    var lastOperation = ""
     private lateinit var binding: ActivityMainBinding
 
-    var lastOperation = ""
-
-    //private val wrapperHistory = WrapperHistory()
     private val fragment = SecondFragment()
+
+    private val db = CalculatorApplication.db
+    //private val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "history-db").allowMainThreadQueries().build()
+    var history = db?.historyDao()?.getAll()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +27,12 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
 
-//           val bundle = Bundle()
-//           bundle.putParcelable(MAIN_PARCELABLE, wrapperHistory)
-//           val fragment = SecondFragment()
-//           fragment.arguments = bundle
-//           val transaction = supportFragmentManager.beginTransaction()
-//           transaction.add(R.id.container,fragment)
-//           transaction.addToBackStack(null)
-//           transaction.commit()
 
-            //val fragment = SecondFragment()
-            val transaction = supportFragmentManager.beginTransaction()
+        history?.forEach {
+            fragment.addToList(it.result)
+        }
+
+        val transaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.container, fragment)
             transaction.commit()
 
@@ -120,8 +118,7 @@ class MainActivity : AppCompatActivity() {
         displayText.text = "$res"
 
         fragment.addToList("$s = $res")
-
-        //wrapperHistory.histories.add(History("$s = $res"))
+        db?.historyDao()?.insertAll(History("{$s = $res}"))
 
     }
 
