@@ -1,10 +1,10 @@
-package com.example.calculator
+package com.project.calculator
 
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.calculator.databinding.ActivityMainBinding
+import com.project.calculator.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 

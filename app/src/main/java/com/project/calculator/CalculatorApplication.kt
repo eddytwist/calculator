@@ -1,4 +1,4 @@
-package com.example.calculator
+package com.project.calculator
 
 import android.app.Application
 import androidx.room.Room

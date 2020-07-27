@@ -1,4 +1,4 @@
-package com.example.calculator
+package com.project.calculator
 
 import org.junit.Test
 
