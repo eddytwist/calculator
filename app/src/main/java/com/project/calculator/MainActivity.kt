@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private val db = CalculatorApplication.db
     //private val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "history-db").allowMainThreadQueries().build()
-    var history = db?.historyDao()?.getAll()
+    var histories = db?.historyDao()?.getAll()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        history?.forEach {
+        histories?.forEach {
             fragment.addToList(it.result)
         }
 
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
         displayText.text = "$res"
 
         fragment.addToList("$s = $res")
-        db?.historyDao()?.insertAll(History("{$s = $res}"))
+        db?.historyDao()?.insertAll(History("$s = $res"))
 
     }
 
