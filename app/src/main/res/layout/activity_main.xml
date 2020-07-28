@@ -100,7 +100,7 @@
         android:layout_height="0dp"
         android:layout_margin="0dp"
         android:layout_marginStart="16dp"
-        android:text="Clear"
+        android:text="CL"
         app:layout_constraintBottom_toTopOf="@+id/three"
         app:layout_constraintEnd_toStartOf="@+id/divis"
         app:layout_constraintHorizontal_weight="1"
