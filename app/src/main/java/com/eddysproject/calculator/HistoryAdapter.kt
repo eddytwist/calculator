@@ -1,4 +1,4 @@
-package com.project.calculator
+package com.eddysproject.calculator
 
 import android.view.LayoutInflater
 import android.view.View

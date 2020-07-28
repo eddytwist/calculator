@@ -1,4 +1,4 @@
-package com.project.calculator
+package com.eddysproject.calculator
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
