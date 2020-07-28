@@ -8,7 +8,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.project.calculator"
+        applicationId "com.eddysproject.calculator"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1

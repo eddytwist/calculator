@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.calculator">
+    package="com.eddysproject.calculator">
 
     <application
         android:allowBackup="true"
@@ -9,16 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".CalculatorApplication">
+        android:name="com.eddysproject.calculator.CalculatorApplication">
 
-        <activity android:name="com.project.calculator.MainActivity">
+        <activity android:name="com.eddysproject.calculator.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.project.calculator.SecondActivity"/>
+        <activity android:name="com.eddysproject.calculator.SecondActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,11 +1,11 @@
-package com.project.calculator
+package com.eddysproject.calculator
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.project.calculator.databinding.ActivitySecondBinding
+import com.eddysproject.calculator.databinding.ActivitySecondBinding
 import kotlinx.android.synthetic.main.activity_second.*
 
 

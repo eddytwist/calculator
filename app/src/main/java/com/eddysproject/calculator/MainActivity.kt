@@ -1,11 +1,10 @@
-package com.project.calculator
+package com.eddysproject.calculator
 
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.project.calculator.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.*
+import com.eddysproject.calculator.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 
