@@ -12,7 +12,11 @@ class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
     private val histories = mutableListOf<History>()
     fun addItem(history: History) {
         histories.add(0, history)
-        //db?.historyDao()?.insertAll(*histories.toTypedArray())
+        notifyDataSetChanged()
+    }
+
+    fun clearAll() {
+        histories.clear()
         notifyDataSetChanged()
     }
 
