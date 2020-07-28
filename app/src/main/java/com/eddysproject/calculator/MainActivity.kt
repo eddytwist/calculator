@@ -25,6 +25,62 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        binding.ac.setOnClickListener {
+            displayText.text = "0"}
+        binding.clearHistory.setOnClickListener {
+            db?.clearAllTables()
+            fragment.clearView()
+        }
+        binding.back.setOnClickListener {
+            if (displayText.text.toString().length != 1) {
+                displayText.text = displayText.text.toString().dropLast(1)
+            } else displayText.text = "0"
+        }
+        binding.dot.setOnClickListener {
+            hasNotBeenProgrammed(".")
+//                if (lastOperation != ".") {
+//                    binding.displayText.append(".")
+//                    lastOperation = "."
+//                } else binding.displayText.append("")
+        }
+        binding.zero.setOnClickListener { addNum("0") }
+        binding.one.setOnClickListener { addNum("1") }
+        binding.two.setOnClickListener { addNum("2") }
+        binding.three.setOnClickListener { addNum("3") }
+        binding.four.setOnClickListener { addNum("4") }
+        binding.four.setOnClickListener { addNum("4") }
+        binding.five.setOnClickListener { addNum("5") }
+        binding.six.setOnClickListener { addNum("6") }
+        binding.seven.setOnClickListener { addNum("7") }
+        binding.eight.setOnClickListener { addNum("8") }
+        binding.nine.setOnClickListener { addNum("9") }
+        binding.plus.setOnClickListener {
+            //Log.d("TAG", displayText.text.toString())
+            //Log.d("TAG", "$lastOperation")
+            addOperation("+")
+        }
+        binding.minus.setOnClickListener {
+            addOperation("-")
+        }
+        binding.mult.setOnClickListener {
+            addOperation("*")
+        }
+        binding.divis.setOnClickListener {
+            addOperation("/")
+        }
+        binding.equal.setOnClickListener {
+            val last = displayText.text.toString()[displayText.text.toString().length-1].toString()
+            if(last == "+" || last == "-" || last == "*" || last == "/") {
+                val allText = displayText.text.toString()
+                displayText.text = allText + displayText.text.toString().dropLast(1)
+                checkText(displayText.text.toString())
+                lastOperation = ""
+            }
+            else {
+                checkText(displayText.text.toString())
+                lastOperation = ""
+            }
+        }
 
 
         histories?.forEach {
@@ -35,62 +91,7 @@ class MainActivity : AppCompatActivity() {
             transaction.add(R.id.container, fragment)
             transaction.commit()
 
-            binding.ac.setOnClickListener {
-                displayText.text = "0"}
-            binding.clearHistory.setOnClickListener {
-                db?.clearAllTables()
-                fragment.clearView()
-            }
-            binding.back.setOnClickListener {
-                if (displayText.text.toString().length != 1) {
-                    displayText.text = displayText.text.toString().dropLast(1)
-                } else displayText.text = "0"
-            }
-            binding.dot.setOnClickListener {
-                hasNotBeenProgrammed(".")
-//                if (lastOperation != ".") {
-//                    binding.displayText.append(".")
-//                    lastOperation = "."
-//                } else binding.displayText.append("")
-            }
-            binding.zero.setOnClickListener { addNum("0") }
-            binding.one.setOnClickListener { addNum("1") }
-            binding.two.setOnClickListener { addNum("2") }
-            binding.three.setOnClickListener { addNum("3") }
-            binding.four.setOnClickListener { addNum("4") }
-            binding.four.setOnClickListener { addNum("4") }
-            binding.five.setOnClickListener { addNum("5") }
-            binding.six.setOnClickListener { addNum("6") }
-            binding.seven.setOnClickListener { addNum("7") }
-            binding.eight.setOnClickListener { addNum("8") }
-            binding.nine.setOnClickListener { addNum("9") }
-            binding.plus.setOnClickListener {
-                //Log.d("TAG", displayText.text.toString())
-                //Log.d("TAG", "$lastOperation")
-                addOperation("+")
-            }
-            binding.minus.setOnClickListener {
-                addOperation("-")
-            }
-            binding.mult.setOnClickListener {
-                addOperation("*")
-            }
-            binding.divis.setOnClickListener {
-                addOperation("/")
-            }
-            binding.equal.setOnClickListener {
-                val last = displayText.text.toString()[displayText.text.toString().length-1].toString()
-                if(last == "+" || last == "-" || last == "*" || last == "/") {
-                    val allText = displayText.text.toString()
-                    displayText.text = allText + displayText.text.toString().dropLast(1)
-                    checkText(displayText.text.toString())
-                    lastOperation = ""
-                }
-                else {
-                    checkText(displayText.text.toString())
-                    lastOperation = ""
-                }
-            }
+
     }
 
     private fun checkText (s : String) {
@@ -149,10 +150,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, SecondActivity::class.java)
         intent.putExtra(SecondActivity.WRONG_BUTTON, s)
         startActivity(intent)
-    }
-
-    companion object{
-        const val MAIN_PARCELABLE = "MAIN_PARCELABLE"
     }
 
 }

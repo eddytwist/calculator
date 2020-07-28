@@ -23,8 +23,9 @@ class SecondActivity : AppCompatActivity() {
         showBut()
 
         binding.back.setOnClickListener {
-            val intent =  Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
+//            val intent =  Intent(this, MainActivity::class.java)
+//            startActivity(intent)
         }
     }
 
@@ -42,6 +43,5 @@ class SecondActivity : AppCompatActivity() {
 
     companion object {
         const val WRONG_BUTTON = "WRONG_BUTTON"
-        const val SECOND_ACTIVITY = "SECOND_ACTIVITY"
     }
 }
