@@ -15,6 +15,11 @@ class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun clearAll() {
+        histories.clear()
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.view_history, parent,false)
         return HistoryViewHolder(view)

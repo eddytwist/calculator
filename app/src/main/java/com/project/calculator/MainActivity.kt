@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.project.calculator.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -14,10 +15,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val fragment = SecondFragment()
-
     private val db = CalculatorApplication.db
     //private val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "history-db").allowMainThreadQueries().build()
-    var histories = db?.historyDao()?.getAll()
+    private var histories = db?.historyDao()?.getAll()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,12 @@ class MainActivity : AppCompatActivity() {
             transaction.add(R.id.container, fragment)
             transaction.commit()
 
-            binding.ac.setOnClickListener { displayText.text = "0" }
+            binding.ac.setOnClickListener {
+                displayText.text = "0"}
+            binding.clearHistory.setOnClickListener {
+                db?.clearAllTables()
+                fragment.clearView()
+            }
             binding.back.setOnClickListener {
                 if (displayText.text.toString().length != 1) {
                     displayText.text = displayText.text.toString().dropLast(1)
