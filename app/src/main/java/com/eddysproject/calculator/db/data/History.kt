@@ -1,4 +1,4 @@
-package com.eddysproject.calculator
+package com.eddysproject.calculator.db.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

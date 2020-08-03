@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait"
-        android:name="com.eddysproject.calculator.CalculatorApplication">
+        android:name=".CalculatorApplication">
 
-        <activity android:name="com.eddysproject.calculator.MainActivity">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.eddysproject.calculator.SecondActivity"/>
+        <activity android:name=".ui.second.SecondActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,21 +1,23 @@
 package com.eddysproject.calculator
 
 import android.app.Application
-import androidx.room.Room
+import com.eddysproject.calculator.di.databaseModules
+import com.eddysproject.calculator.di.repositoryModule
+import com.eddysproject.calculator.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 class CalculatorApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        application = this
 
-        db = Room.databaseBuilder(
-            this,
-            AppDatabase::class.java, "database-name"
-        ).allowMainThreadQueries().build()
-    }
-
-    companion object {
-        var application: CalculatorApplication? = null
-        var db: AppDatabase? = null
+        startKoin {
+            androidLogger()
+            androidContext(this@CalculatorApplication)
+            modules(
+                listOf(databaseModules, repositoryModule, viewModelModule)
+            )
+        }
     }
 }

@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
-
+    tools:context=".ui.main.MainActivity">
 
     <LinearLayout
         android:id="@+id/topLine"
@@ -37,13 +34,6 @@
             android:textColor="@android:color/white"
             android:textSize="60sp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/frag_button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Show History" />-->
-
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -54,12 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
     </LinearLayout>
-
-
-
 
     <Button
         android:id="@+id/ac"
@@ -383,8 +368,5 @@
         app:layout_constraintStart_toEndOf="@+id/dot"
         app:layout_constraintTop_toBottomOf="@+id/nine"
         app:layout_constraintVertical_weight="1" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
