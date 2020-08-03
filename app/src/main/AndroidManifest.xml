@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"
         android:name="com.eddysproject.calculator.CalculatorApplication">
 
         <activity android:name="com.eddysproject.calculator.MainActivity">
