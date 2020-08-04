@@ -1,10 +1,10 @@
-package com.eddysproject.calculator
+package com.eddysproject.calculator.ui.second
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.eddysproject.calculator.R
 import com.eddysproject.calculator.databinding.ActivitySecondBinding
 import kotlinx.android.synthetic.main.activity_second.*
 

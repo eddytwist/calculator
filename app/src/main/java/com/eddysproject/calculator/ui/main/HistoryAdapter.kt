@@ -1,14 +1,15 @@
-package com.eddysproject.calculator
+package com.eddysproject.calculator.ui.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.eddysproject.calculator.R
+import com.eddysproject.calculator.db.data.History
 import kotlinx.android.synthetic.main.view_history.view.*
 
 class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
-    //private val db = CalculatorApplication.db
     private val histories = mutableListOf<History>()
     fun addItem(history: History) {
         histories.add(0, history)
@@ -22,7 +23,9 @@ class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.view_history, parent,false)
-        return HistoryViewHolder(view)
+        return HistoryViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {
