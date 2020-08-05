@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         binding.minus.setOnClickListener {
             addOperation(MINUS)
         }
-        binding.mult.setOnClickListener {
+        binding.multiply.setOnClickListener {
             addOperation(MULTIPLY)
         }
         binding.divis.setOnClickListener {

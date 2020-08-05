@@ -6,45 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/topLine"
+    <View
+        android:id="@+id/viewBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        android:background="@drawable/text_button"
+        app:layout_constraintBottom_toBottomOf="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/displayText"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:ellipsize="start"
+        android:fontFamily="@font/lato"
+        android:gravity="center|end"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:singleLine="true"
+        android:text="0"
+        android:textColor="@android:color/white"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/back"
-        app:layout_constraintVertical_weight="2.5"
-        android:background="@drawable/text_button">
+        />
 
-        <TextView
-            android:id="@+id/displayText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:ellipsize="start"
-            android:fontFamily="@font/lato"
-            android:gravity="center|end"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:singleLine="true"
-            android:text="0"
-            android:textColor="@android:color/white"
-            android:textSize="60sp" />
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ac"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displayText"
+        app:layout_constraintVertical_weight="1.5" />
 
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/ac"
@@ -60,7 +64,7 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topLine"
+        app:layout_constraintTop_toBottomOf="@+id/container"
         app:layout_constraintVertical_weight="1.2" />
 
 
@@ -75,7 +79,7 @@
         app:layout_constraintEnd_toStartOf="@id/clearHistory"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/ac"
-        app:layout_constraintTop_toBottomOf="@+id/topLine"
+        app:layout_constraintTop_toBottomOf="@+id/container"
         app:layout_constraintVertical_weight="1.2" />
 
     <Button
@@ -90,7 +94,7 @@
         app:layout_constraintEnd_toStartOf="@+id/divis"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@id/back"
-        app:layout_constraintTop_toBottomOf="@+id/topLine"
+        app:layout_constraintTop_toBottomOf="@+id/container"
         app:layout_constraintVertical_weight="1.2" />
 
 
@@ -101,11 +105,11 @@
         android:layout_height="0dp"
         android:layout_margin="0dp"
         android:text="/"
-        app:layout_constraintBottom_toTopOf="@+id/mult"
+        app:layout_constraintBottom_toTopOf="@+id/multiply"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/clearHistory"
-        app:layout_constraintTop_toBottomOf="@+id/topLine"
+        app:layout_constraintTop_toBottomOf="@+id/container"
         app:layout_constraintVertical_weight="1.2" />
 
     <Button
@@ -152,7 +156,7 @@
         android:layout_marginTop="24dp"
         android:text="3"
         app:layout_constraintBottom_toTopOf="@+id/six"
-        app:layout_constraintEnd_toStartOf="@+id/mult"
+        app:layout_constraintEnd_toStartOf="@+id/multiply"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/two"
@@ -160,7 +164,7 @@
         app:layout_constraintVertical_weight="1" />
 
     <Button
-        android:id="@+id/mult"
+        android:id="@+id/multiply"
         style="@style/ActionButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -223,7 +227,7 @@
         android:layout_marginTop="16dp"
         android:text="6"
         app:layout_constraintBottom_toTopOf="@+id/nine"
-        app:layout_constraintEnd_toStartOf="@+id/mult"
+        app:layout_constraintEnd_toStartOf="@+id/multiply"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/five"
@@ -245,7 +249,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/six"
-        app:layout_constraintTop_toBottomOf="@+id/mult"
+        app:layout_constraintTop_toBottomOf="@+id/multiply"
         app:layout_constraintVertical_weight="1" />
 
 
