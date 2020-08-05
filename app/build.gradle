@@ -10,9 +10,9 @@ android {
     defaultConfig {
         applicationId "com.eddysproject.calculator"
         minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 2
-        versionName "1.1"
+        targetSdkVersion 30
+        versionCode 4
+        versionName "1.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
