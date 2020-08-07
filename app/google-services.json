@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "131348308552",
+    "firebase_url": "https://calculator-qasar.firebaseio.com",
+    "project_id": "calculator-qasar",
+    "storage_bucket": "calculator-qasar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131348308552:android:bb78ed3e223745078bee7d",
+        "android_client_info": {
+          "package_name": "com.eddysproject.calculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131348308552-ejv8quk5b8t7vpbq9goq7sac1p5vdpuc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClgJujNMBesGALEGTUy4fnQ_oFQg8f1OE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131348308552-ejv8quk5b8t7vpbq9goq7sac1p5vdpuc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
