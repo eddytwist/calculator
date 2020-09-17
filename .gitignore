@@ -84,5 +84,11 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
+### OSX ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
 # Android Profiling
 *.hprof
