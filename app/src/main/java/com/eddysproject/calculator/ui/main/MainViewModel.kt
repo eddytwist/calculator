@@ -1,8 +1,8 @@
 package com.eddysproject.calculator.ui.main
 
-import android.icu.text.DecimalFormat
-import android.icu.text.NumberFormat
 import android.util.Log
+import android.view.Gravity
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.eddysproject.calculator.db.data.History
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
+import java.lang.ArithmeticException
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
@@ -64,7 +65,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             val ex = ExpressionBuilder(s).build()
             val result = ex.evaluate()
             val longRes = result.toLong()
-            if(result == longRes.toDouble())
+            if (result == longRes.toDouble())
                 displayText = longRes.toString()
             else
                 displayText = result.toString()
@@ -72,6 +73,13 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             viewModelScope.launch {
                 repository.insertAll(History("$s = $displayText"))
             }
+        } catch (e: ArithmeticException) {
+            Log.d("Error","message: ${e.message}")
+            displayText = ZERO
+//            val toast = Toast.makeText(,)
+//            "Division by zero!", Toast.LENGTH_SHORT
+//            toast.setGravity(Gravity.CENTER, 0, 0)
+//            toast.show()
         } catch (e: Exception) {
             Log.d("Error","message: ${e.message}")
         }
@@ -81,7 +89,10 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         if (displayText == ZERO) {
             displayText = s
         } else {
-            displayText += s
+            if (displayText[displayText.length - 1].toString() == ZERO && !displayText[displayText.length - 2].isDigit() && displayText[displayText.length - 2].toString() != DOT)
+                displayText += ".$s"
+            else
+                displayText += s
         }
         _data.value = displayText
     }
@@ -97,6 +108,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun onAc() {
         displayText = ZERO
+        lastOperation = EMPTY
         _data.value = displayText
     }
 
