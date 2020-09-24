@@ -67,8 +67,9 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             val longRes = result.toLong()
             if (result == longRes.toDouble())
                 displayText = longRes.toString()
-            else
-                displayText = result.toString()
+            else {
+                displayText = String.format("%.5f", result).toDouble().toString()
+            }
             _history.value = "$s = $displayText"
             viewModelScope.launch {
                 repository.insertAll(History("$s = $displayText"))
