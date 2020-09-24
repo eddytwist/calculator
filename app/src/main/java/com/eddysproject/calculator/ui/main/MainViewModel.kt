@@ -1,8 +1,6 @@
 package com.eddysproject.calculator.ui.main
 
 import android.util.Log
-import android.view.Gravity
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -95,6 +93,11 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             else
                 displayText += s
         }
+        _data.value = displayText
+    }
+
+    fun addDot(s: String) {
+        displayText += s
         _data.value = displayText
     }
 

@@ -24,8 +24,6 @@ class SecondActivity : AppCompatActivity() {
 
         binding.back.setOnClickListener {
             onBackPressed()
-//            val intent =  Intent(this, MainActivity::class.java)
-//            startActivity(intent)
         }
     }
 

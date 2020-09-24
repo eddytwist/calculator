@@ -1,6 +1,5 @@
 package com.eddysproject.calculator.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.eddysproject.calculator.R
@@ -12,8 +11,8 @@ import com.eddysproject.calculator.ui.main.MainViewModel.Companion.DOT
 import com.eddysproject.calculator.ui.main.MainViewModel.Companion.MINUS
 import com.eddysproject.calculator.ui.main.MainViewModel.Companion.MULTIPLY
 import com.eddysproject.calculator.ui.main.MainViewModel.Companion.PLUS
-import com.eddysproject.calculator.ui.second.SecondActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding.nine.setOnClickListener { addNum("9") }
 
         binding.dot.setOnClickListener {
-            hasNotBeenProgrammed(DOT)
+            addDot(DOT)
         }
         binding.plus.setOnClickListener {
             addOperation(PLUS)
@@ -91,11 +90,15 @@ class MainActivity : AppCompatActivity() {
         viewModel.addOperation(s)
     }
 
-    private fun hasNotBeenProgrammed(s: String) {
-        val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtra(SecondActivity.WRONG_BUTTON, s)
-        startActivity(intent)
+    private fun addDot(s: String) {
+        viewModel.addDot(s)
     }
+
+//    private fun hasNotBeenProgrammed(s: String) {
+//        val intent = Intent(this, SecondActivity::class.java)
+//        intent.putExtra(SecondActivity.WRONG_BUTTON, s)
+//        startActivity(intent)
+//    }
 
     private fun display(value: String?) {
         binding.displayText.text = value
