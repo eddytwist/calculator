@@ -28,7 +28,7 @@
         android:singleLine="true"
         android:text="0"
         android:textColor="@android:color/white"
-        android:textSize="60sp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"

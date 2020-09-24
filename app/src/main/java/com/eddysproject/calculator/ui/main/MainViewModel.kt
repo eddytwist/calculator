@@ -1,11 +1,16 @@
 package com.eddysproject.calculator.ui.main
 
+import android.util.Log
+import android.view.Gravity
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eddysproject.calculator.db.data.History
 import kotlinx.coroutines.launch
+import net.objecthunter.exp4j.ExpressionBuilder
+import java.lang.ArithmeticException
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
@@ -21,42 +26,20 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     private val _histories = MutableLiveData<List<History>>()
     val histories: LiveData<List<History>> = _histories
 
-    fun addNum(s: String) {
-        if (displayText == ZERO) {
-            displayText = s
-        } else {
-            displayText += s
-        }
-        _data.value = displayText
-    }
-
-    fun onBack() {
-        displayText = if (displayText.length != 1) {
-            displayText.dropLast(1)
-        } else {
-            ZERO
-        }
-        _data.value = displayText
-    }
-
-    fun onAc() {
-        displayText = ZERO
-        _data.value = displayText
-    }
-
     fun addOperation(s: String) {
-        val l = lastOperation
-        lastOperation =
-            if (l != EMPTY && displayText[displayText.length - 1].toString() != l) {
+        if (lastOperation.isNotEmpty()) {
                 checkText(displayText)
-                EMPTY
-            } else {
-                if (l == PLUS || l == MINUS || l == MULTIPLY || l == DIVISION) {
-                    displayText = displayText.dropLast(1)
-                }
+                lastOperation = s
+            if (displayText[displayText.length - 1].isDigit()) {
                 displayText += s
-                s
+            } else {
+                displayText = displayText.dropLast(1) + s
             }
+        }
+        else {
+            displayText += s
+            lastOperation = s
+        }
         _data.value = displayText
     }
 
@@ -77,41 +60,62 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         _data.value = displayText
     }
 
-    fun onClearHistory() {
-        viewModelScope.launch {
-            repository.onClearHistory()
+    private fun checkText(s: String) {
+        try {
+            val ex = ExpressionBuilder(s).build()
+            val result = ex.evaluate()
+            val longRes = result.toLong()
+            if (result == longRes.toDouble())
+                displayText = longRes.toString()
+            else {
+                displayText = String.format("%.5f", result).toDouble().toString()
+            }
+            _history.value = "$s = $displayText"
+            viewModelScope.launch {
+                repository.insertAll(History("$s = $displayText"))
+            }
+        } catch (e: ArithmeticException) {
+            Log.d("Error","message: ${e.message}")
+            displayText = ZERO
+//            val toast = Toast.makeText(,)
+//            "Division by zero!", Toast.LENGTH_SHORT
+//            toast.setGravity(Gravity.CENTER, 0, 0)
+//            toast.show()
+        } catch (e: Exception) {
+            Log.d("Error","message: ${e.message}")
         }
     }
 
-    private fun checkText(s: String) {
-        var res = 0
-        val firstArr: List<String>
-        when (lastOperation) {
-            PLUS -> {
-                firstArr = s.split(PLUS)
-                res = firstArr[0].toInt() + firstArr[1].toInt()
-            }
-            MINUS -> {
-                firstArr = s.split(MINUS)
-                res = firstArr[0].toInt() - firstArr[1].toInt()
-            }
-            MULTIPLY -> {
-                firstArr = s.split(MULTIPLY)
-                res = firstArr[0].toInt() * firstArr[1].toInt()
-            }
-            DIVISION -> {
-                firstArr = s.split(DIVISION)
-                res = if (firstArr[1] == ZERO) {
-                    0
-                } else firstArr[0].toInt() / firstArr[1].toInt()
-            }
-            else -> displayText += EMPTY
+    fun addNum(s: String) {
+        if (displayText == ZERO) {
+            displayText = s
+        } else {
+            if (displayText[displayText.length - 1].toString() == ZERO && !displayText[displayText.length - 2].isDigit() && displayText[displayText.length - 2].toString() != DOT)
+                displayText += ".$s"
+            else
+                displayText += s
         }
-        displayText = "$res"
-        _history.value = "$s = $res"
+        _data.value = displayText
+    }
 
+    fun onBack() {
+        displayText = if (displayText.length != 1) {
+            displayText.dropLast(1)
+        } else {
+            ZERO
+        }
+        _data.value = displayText
+    }
+
+    fun onAc() {
+        displayText = ZERO
+        lastOperation = EMPTY
+        _data.value = displayText
+    }
+
+    fun onClearHistory() {
         viewModelScope.launch {
-            repository.insertAll(History("$s = $res"))
+            repository.onClearHistory()
         }
     }
 
