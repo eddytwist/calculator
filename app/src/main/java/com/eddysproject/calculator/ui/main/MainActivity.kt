@@ -1,6 +1,5 @@
 package com.eddysproject.calculator.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.eddysproject.calculator.R
@@ -12,8 +11,8 @@ import com.eddysproject.calculator.ui.main.MainViewModel.Companion.DOT
 import com.eddysproject.calculator.ui.main.MainViewModel.Companion.MINUS
 import com.eddysproject.calculator.ui.main.MainViewModel.Companion.MULTIPLY
 import com.eddysproject.calculator.ui.main.MainViewModel.Companion.PLUS
-import com.eddysproject.calculator.ui.second.SecondActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,25 +55,12 @@ class MainActivity : AppCompatActivity() {
         binding.seven.setOnClickListener { addNum("7") }
         binding.eight.setOnClickListener { addNum("8") }
         binding.nine.setOnClickListener { addNum("9") }
-
-        binding.dot.setOnClickListener {
-            hasNotBeenProgrammed(DOT)
-        }
-        binding.plus.setOnClickListener {
-            addOperation(PLUS)
-        }
-        binding.minus.setOnClickListener {
-            addOperation(MINUS)
-        }
-        binding.multiply.setOnClickListener {
-            addOperation(MULTIPLY)
-        }
-        binding.divis.setOnClickListener {
-            addOperation(DIVISION)
-        }
-        binding.equal.setOnClickListener {
-            viewModel.onEqual()
-        }
+        binding.dot.setOnClickListener { addDot(DOT) }
+        binding.plus.setOnClickListener { addOperation(PLUS) }
+        binding.minus.setOnClickListener { addOperation(MINUS) }
+        binding.multiply.setOnClickListener { addOperation(MULTIPLY) }
+        binding.divis.setOnClickListener { addOperation(DIVISION) }
+        binding.equal.setOnClickListener { viewModel.onEqual() }
 
         viewModel.getHistories()
 
@@ -91,10 +77,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.addOperation(s)
     }
 
-    private fun hasNotBeenProgrammed(s: String) {
-        val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtra(SecondActivity.WRONG_BUTTON, s)
-        startActivity(intent)
+    private fun addDot(s: String) {
+        viewModel.addDot(s)
     }
 
     private fun display(value: String?) {
@@ -111,3 +95,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+//// Function for useless buttons
+//    private fun hasNotBeenProgrammed(s: String) {
+//        val intent = Intent(this, SecondActivity::class.java)
+//        intent.putExtra(SecondActivity.WRONG_BUTTON, s)
+//        startActivity(intent)
+//    }

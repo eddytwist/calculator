@@ -1,8 +1,6 @@
 package com.eddysproject.calculator.ui.main
 
 import android.util.Log
-import android.view.Gravity
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,12 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.eddysproject.calculator.db.data.History
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
-import java.lang.ArithmeticException
+
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
-    private var displayText: String = EMPTY
+    private var displayText: String = ZERO
     private var lastOperation = EMPTY
+    private var countDots = 0
 
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data
@@ -28,7 +27,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun addOperation(s: String) {
         if (lastOperation.isNotEmpty()) {
-                checkText(displayText)
+                checkDisplayText(displayText)
                 lastOperation = s
             if (displayText[displayText.length - 1].isDigit()) {
                 displayText += s
@@ -37,8 +36,11 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             }
         }
         else {
+            if (displayText.last().toString() == DOT)
+                displayText += ZERO
             displayText += s
             lastOperation = s
+            countDots = 1
         }
         _data.value = displayText
     }
@@ -49,67 +51,61 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         if (last == PLUS || last == MINUS || last == MULTIPLY || last == DIVISION) {
             val allText = displayText
             displayText = allText + displayText.dropLast(1)
-            checkText(displayText)
+            checkDisplayText(displayText)
             lastOperation =
                 EMPTY
         } else {
-            checkText(displayText)
+            checkDisplayText(displayText)
             lastOperation =
                 EMPTY
         }
         _data.value = displayText
-    }
-
-    private fun checkText(s: String) {
-        try {
-            val ex = ExpressionBuilder(s).build()
-            val result = ex.evaluate()
-            val longRes = result.toLong()
-            if (result == longRes.toDouble())
-                displayText = longRes.toString()
-            else {
-                displayText = String.format("%.5f", result).toDouble().toString()
-            }
-            _history.value = "$s = $displayText"
-            viewModelScope.launch {
-                repository.insertAll(History("$s = $displayText"))
-            }
-        } catch (e: ArithmeticException) {
-            Log.d("Error","message: ${e.message}")
-            displayText = ZERO
-//            val toast = Toast.makeText(,)
-//            "Division by zero!", Toast.LENGTH_SHORT
-//            toast.setGravity(Gravity.CENTER, 0, 0)
-//            toast.show()
-        } catch (e: Exception) {
-            Log.d("Error","message: ${e.message}")
-        }
     }
 
     fun addNum(s: String) {
         if (displayText == ZERO) {
-            displayText = s
-        } else {
-            if (displayText[displayText.length - 1].toString() == ZERO && !displayText[displayText.length - 2].isDigit() && displayText[displayText.length - 2].toString() != DOT)
-                displayText += ".$s"
-            else
-                displayText += s
+            displayText = displayText.dropLast(1) + s
         }
+        else if (displayText.last().toString() == ZERO && displayText[displayText.length - 2].toString() == lastOperation) {
+            displayText = displayText.dropLast(1) + s
+        }
+        else
+            displayText += s
+        _data.value = displayText
+    }
+
+    fun addDot(s: String) {
+        if (!displayText.contains(DOT) && lastOperation.isEmpty()) {
+            displayText += s
+            countDots ++
+        }
+        else if (lastOperation.isNotEmpty() && countDots < 2) {
+            if (!displayText.last().isDigit()) {
+                displayText += "$ZERO$s"
+                countDots ++
+            } else {
+                displayText += s
+                countDots ++
+            }
+        }
+        Log.d("DOT", "countDots $countDots")
         _data.value = displayText
     }
 
     fun onBack() {
-        displayText = if (displayText.length != 1) {
-            displayText.dropLast(1)
-        } else {
-            ZERO
-        }
+        if (displayText.length != 1) {
+            if (displayText.last().toString() == DOT)
+                countDots--
+            displayText = displayText.dropLast(1)
+        } else
+            onAc()
         _data.value = displayText
     }
 
     fun onAc() {
         displayText = ZERO
         lastOperation = EMPTY
+        countDots = 0
         _data.value = displayText
     }
 
@@ -122,6 +118,36 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     fun getHistories() {
         viewModelScope.launch {
             _histories.value = repository.getAll()
+        }
+    }
+
+    private fun checkDisplayText(s: String) {
+        try {
+            val ex = ExpressionBuilder(s).build()
+            val result = ex.evaluate()
+            val longRes = result.toLong()
+            if (result == longRes.toDouble()) {
+                displayText = longRes.toString()
+                countDots = 0
+            }
+            else {
+                displayText = String.format("%.5f", result).toDouble().toString()
+                countDots = 1
+            }
+            if (s.last().toString() == DOT)
+                _history.value = "$s$ZERO=$displayText"
+            else
+                _history.value = "$s=$displayText"
+            viewModelScope.launch {
+                repository.insertAll(History("$s=$displayText"))
+            }
+        } catch (e: ArithmeticException) {
+            Log.d("Error", "message: ${e.message}")
+            displayText = ZERO
+            //Toast.makeText(, "Division by zero!", Toast.LENGTH_SHORT).show()
+
+        } catch (e: Exception) {
+            Log.d("Error", "message: ${e.message}")
         }
     }
 
