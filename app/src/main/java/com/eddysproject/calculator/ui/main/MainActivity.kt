@@ -55,25 +55,12 @@ class MainActivity : AppCompatActivity() {
         binding.seven.setOnClickListener { addNum("7") }
         binding.eight.setOnClickListener { addNum("8") }
         binding.nine.setOnClickListener { addNum("9") }
-
-        binding.dot.setOnClickListener {
-            addDot(DOT)
-        }
-        binding.plus.setOnClickListener {
-            addOperation(PLUS)
-        }
-        binding.minus.setOnClickListener {
-            addOperation(MINUS)
-        }
-        binding.multiply.setOnClickListener {
-            addOperation(MULTIPLY)
-        }
-        binding.divis.setOnClickListener {
-            addOperation(DIVISION)
-        }
-        binding.equal.setOnClickListener {
-            viewModel.onEqual()
-        }
+        binding.dot.setOnClickListener { addDot(DOT) }
+        binding.plus.setOnClickListener { addOperation(PLUS) }
+        binding.minus.setOnClickListener { addOperation(MINUS) }
+        binding.multiply.setOnClickListener { addOperation(MULTIPLY) }
+        binding.divis.setOnClickListener { addOperation(DIVISION) }
+        binding.equal.setOnClickListener { viewModel.onEqual() }
 
         viewModel.getHistories()
 
@@ -94,12 +81,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.addDot(s)
     }
 
-//    private fun hasNotBeenProgrammed(s: String) {
-//        val intent = Intent(this, SecondActivity::class.java)
-//        intent.putExtra(SecondActivity.WRONG_BUTTON, s)
-//        startActivity(intent)
-//    }
-
     private fun display(value: String?) {
         binding.displayText.text = value
     }
@@ -114,3 +95,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+//// Function for useless buttons
+//    private fun hasNotBeenProgrammed(s: String) {
+//        val intent = Intent(this, SecondActivity::class.java)
+//        intent.putExtra(SecondActivity.WRONG_BUTTON, s)
+//        startActivity(intent)
+//    }
