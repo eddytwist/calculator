@@ -1,15 +1,10 @@
 package com.eddysproject.calculator.ui.main
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
-import android.view.Gravity
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.eddysproject.calculator.db.data.History
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -77,12 +72,6 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         else
             displayText += s
         _data.value = displayText
-    }
-
-    fun addZero(s: String) {
-            displayText += s
-        _data.value = displayText
-
     }
 
     fun addDot(s: String) {
@@ -155,11 +144,8 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         } catch (e: ArithmeticException) {
             Log.d("Error", "message: ${e.message}")
             displayText = ZERO
-            val context: Context = Application.getApplicationContext()
-            Toast.makeText(this@, "", Toast.LENGTH_SHORT).show()
-            val toast = Toast.makeText(this@MainViewModel, "Division by zero!", Toast.LENGTH_SHORT)
-            toast.setGravity(Gravity.CENTER, 0, 0)
-            toast.show()
+            //Toast.makeText(, "Division by zero!", Toast.LENGTH_SHORT).show()
+
         } catch (e: Exception) {
             Log.d("Error", "message: ${e.message}")
         }
@@ -176,13 +162,3 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         const val DIVISION = "/"
     }
 }
-
-//if (displayText == ZERO) {
-//    displayText = s
-//} else {
-//    if (displayText.length > 1) {
-//        if (displayText[displayText.length - 1].toString() == ZERO && !displayText[displayText.length - 2].isDigit() && displayText[displayText.length - 2].toString() != DOT)
-//            displayText += ".$s"
-//        else
-//            displayText += s
-//    }
