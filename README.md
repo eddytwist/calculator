@@ -1,6 +1,7 @@
 # Calculator
-Android Project developed using:
+Android Project 
 
+Developed using:
 ViewModel, ViewBinding, LiveData, Koin, Kotlin Coroutines, Room, Firebase, ConstraintLayout
 
 
