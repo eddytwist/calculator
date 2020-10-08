@@ -15,4 +15,4 @@ The Calculator can do:
 ViewModel, ViewBinding, LiveData, Koin, Kotlin Coroutines, Room, Firebase, ConstraintLayout
 
 ## 
-<img src="https://lh3.googleusercontent.com/7VcDfmQXvtnp66Kneox1nKkiY9Io-NCd-LLZG9pFfu7YMqhtXeFpE5Gzl1RRmu59cxk" align="center" width="1000" height="100">
+<img src="https://lh3.googleusercontent.com/7VcDfmQXvtnp66Kneox1nKkiY9Io-NCd-LLZG9pFfu7YMqhtXeFpE5Gzl1RRmu59cxk" align="center" width="1000" height="300">
