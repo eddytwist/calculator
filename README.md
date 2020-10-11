@@ -1,4 +1,4 @@
-# The Calculator
+# Calculator
 Android application that performs arithmetic operations on numbers.
 You will find all the functions you need quickly in the clean and beautifully designed interface.
 The Calculator can do:
