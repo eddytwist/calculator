@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eddysproject.calculator.R
 import com.eddysproject.calculator.db.data.History
-import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
-class SecondFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private val adapter = HistoryAdapter()
 
@@ -18,7 +18,7 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

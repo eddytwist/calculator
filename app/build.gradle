@@ -58,7 +58,6 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:2.1.6"
 
     // Recommended: Add the Firebase SDK for Google Analytics.
-    //implementation 'com.google.firebase:firebase-analytics-ktx:17.4.4'
     implementation 'com.google.firebase:firebase-analytics:17.6.0'
     // Add the Firebase Crashlytics SDK.
     implementation 'com.google.firebase:firebase-crashlytics:17.2.2'

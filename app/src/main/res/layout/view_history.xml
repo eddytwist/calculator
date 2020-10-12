@@ -17,7 +17,7 @@
         android:paddingEnd="8dp"
         android:textSize="20sp"
         android:singleLine="true"
-        android:text="result"
+        android:text="@string/result"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

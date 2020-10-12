@@ -14,7 +14,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     private var displayText: String = ZERO
     private var lastOperation = EMPTY
-    private var countDots = 0
+    private var countDecs = 0
 
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data
@@ -32,17 +32,17 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 lastOperation = s
             if (displayText.last().isDigit()) {
                 displayText += s
-                countDots = 1
+                countDecs = 1
             } else {
                 displayText = displayText.dropLast(1) + s
             }
         }
         else {
-            if (displayText.last().toString() == DOT)
+            if (displayText.last().toString() == DECIMAL_POINT)
                 displayText += ZERO
             displayText += s
             lastOperation = s
-            countDots = 1
+            countDecs = 1
         }
         _data.value = displayText
     }
@@ -68,17 +68,17 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     }
 
     fun addDot(s: String) {
-        if (!displayText.contains(DOT) && lastOperation.isEmpty()) {
+        if (!displayText.contains(DECIMAL_POINT) && lastOperation.isEmpty()) {
             displayText += s
-            countDots ++
+            countDecs ++
         }
-        else if (lastOperation.isNotEmpty() && countDots < 2) {
+        else if (lastOperation.isNotEmpty() && countDecs < 2) {
             if (!displayText.last().isDigit()) {
                 displayText += "$ZERO$s"
-                countDots ++
+                countDecs ++
             } else {
                 displayText += s
-                countDots ++
+                countDecs ++
             }
         }
 //        Log.d("LOP", "countDots $countDots")
@@ -88,7 +88,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     fun onBack() {
         if (displayText.length != 1) {
             if (!displayText.last().isDigit())
-                countDots--
+                countDecs--
             displayText = displayText.dropLast(1)
         } else
             onAc()
@@ -98,7 +98,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     fun onAc() {
         displayText = ZERO
         lastOperation = EMPTY
-        countDots = 0
+        countDecs = 0
         _data.value = displayText
     }
 
@@ -121,13 +121,13 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             val longRes = result.toLong()
             if (result == longRes.toDouble()) {
                 displayText = longRes.toString()
-                countDots = 0
+                countDecs = 0
             }
             else {
                 displayText = String.format("%.5f", result).toDouble().toString()
-                countDots = 1
+                countDecs = 1
             }
-            if (s.last().toString() == DOT)
+            if (s.last().toString() == DECIMAL_POINT)
                 _history.value = "$s$ZERO=$displayText"
             else
                 _history.value = "$s=$displayText"
@@ -149,10 +149,10 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         const val EMPTY = ""
         const val ZERO = "0"
 
-        const val DOT = "."
-        const val PLUS = "+"
-        const val MINUS = "-"
-        const val MULTIPLY = "*"
+        const val DECIMAL_POINT = "."
+        const val ADDITION = "+"
+        const val SUBTRACTION = "-"
+        const val MULTIPLICATION = "*"
         const val DIVISION = "/"
     }
 }

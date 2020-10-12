@@ -7,10 +7,10 @@ import com.eddysproject.calculator.databinding.ActivityMainBinding
 import com.eddysproject.calculator.db.data.History
 import com.eddysproject.calculator.extension.observe
 import com.eddysproject.calculator.ui.main.MainViewModel.Companion.DIVISION
-import com.eddysproject.calculator.ui.main.MainViewModel.Companion.DOT
-import com.eddysproject.calculator.ui.main.MainViewModel.Companion.MINUS
-import com.eddysproject.calculator.ui.main.MainViewModel.Companion.MULTIPLY
-import com.eddysproject.calculator.ui.main.MainViewModel.Companion.PLUS
+import com.eddysproject.calculator.ui.main.MainViewModel.Companion.DECIMAL_POINT
+import com.eddysproject.calculator.ui.main.MainViewModel.Companion.SUBTRACTION
+import com.eddysproject.calculator.ui.main.MainViewModel.Companion.MULTIPLICATION
+import com.eddysproject.calculator.ui.main.MainViewModel.Companion.ADDITION
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
 
-    private val fragment = SecondFragment()
+    private val fragment = MainFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +55,11 @@ class MainActivity : AppCompatActivity() {
         binding.seven.setOnClickListener { addNum("7") }
         binding.eight.setOnClickListener { addNum("8") }
         binding.nine.setOnClickListener { addNum("9") }
-        binding.dot.setOnClickListener { addDot(DOT) }
-        binding.plus.setOnClickListener { addOperation(PLUS) }
-        binding.minus.setOnClickListener { addOperation(MINUS) }
-        binding.multiply.setOnClickListener { addOperation(MULTIPLY) }
-        binding.divis.setOnClickListener { addOperation(DIVISION) }
+        binding.dec.setOnClickListener { addDot(DECIMAL_POINT) }
+        binding.addition.setOnClickListener { addOperation(ADDITION) }
+        binding.minus.setOnClickListener { addOperation(SUBTRACTION) }
+        binding.multiplication.setOnClickListener { addOperation(MULTIPLICATION) }
+        binding.division.setOnClickListener { addOperation(DIVISION) }
         binding.equal.setOnClickListener { viewModel.onEqual() }
 
         viewModel.getHistories()
@@ -95,10 +95,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-//// Function for useless buttons
-//    private fun hasNotBeenProgrammed(s: String) {
-//        val intent = Intent(this, SecondActivity::class.java)
-//        intent.putExtra(SecondActivity.WRONG_BUTTON, s)
-//        startActivity(intent)
-//    }
