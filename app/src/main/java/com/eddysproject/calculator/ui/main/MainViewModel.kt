@@ -26,11 +26,13 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     val histories: LiveData<List<History>> = _histories
 
     fun addOperation(s: String) {
+
         if (lastOperation.isNotEmpty()) {
                 checkDisplayText(displayText)
                 lastOperation = s
-            if (displayText[displayText.length - 1].isDigit()) {
+            if (displayText.last().isDigit()) {
                 displayText += s
+                countDots = 1
             } else {
                 displayText = displayText.dropLast(1) + s
             }
@@ -46,19 +48,10 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     }
 
     fun onEqual() {
-        val last =
-            displayText[displayText.length - 1].toString()
-        if (last == PLUS || last == MINUS || last == MULTIPLY || last == DIVISION) {
-            val allText = displayText
-            displayText = allText + displayText.dropLast(1)
+        if (lastOperation.isNotEmpty() && displayText.last().toString() != lastOperation)
             checkDisplayText(displayText)
-            lastOperation =
-                EMPTY
-        } else {
-            checkDisplayText(displayText)
-            lastOperation =
-                EMPTY
-        }
+//        Log.d("LOP", "lastOperation: $lastOperation")
+//        Log.d("LOP", "countDots $countDots")
         _data.value = displayText
     }
 
@@ -88,13 +81,13 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 countDots ++
             }
         }
-        Log.d("DOT", "countDots $countDots")
+//        Log.d("LOP", "countDots $countDots")
         _data.value = displayText
     }
 
     fun onBack() {
         if (displayText.length != 1) {
-            if (displayText.last().toString() == DOT)
+            if (!displayText.last().isDigit())
                 countDots--
             displayText = displayText.dropLast(1)
         } else
@@ -149,6 +142,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         } catch (e: Exception) {
             Log.d("Error", "message: ${e.message}")
         }
+        lastOperation = EMPTY
     }
 
     companion object {
