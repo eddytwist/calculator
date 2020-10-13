@@ -173,7 +173,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/multiplication"
-        app:layout_constraintBottom_toTopOf="@+id/minus"
+        app:layout_constraintBottom_toTopOf="@+id/subtraction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="1"
@@ -235,7 +235,7 @@
         app:layout_constraintVertical_weight="1" />
 
     <Button
-        android:id="@+id/minus"
+        android:id="@+id/subtraction"
         style="@style/ActionButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -244,6 +244,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/subtraction"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/addition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -295,7 +296,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/nine"
         app:layout_constraintBottom_toTopOf="@+id/equal"
-        app:layout_constraintEnd_toStartOf="@+id/minus"
+        app:layout_constraintEnd_toStartOf="@+id/subtraction"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/eight"
         app:layout_constraintTop_toBottomOf="@+id/six"
@@ -316,7 +317,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/nine"
-        app:layout_constraintTop_toBottomOf="@+id/minus"
+        app:layout_constraintTop_toBottomOf="@+id/subtraction"
         app:layout_constraintVertical_weight="1" />
 
 

@@ -124,7 +124,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 countDecs = 0
             }
             else {
-                displayText = String.format("%.5f", result).toDouble().toString()
+                displayText = String.format("%.5f", result)
                 countDecs = 1
             }
             if (s.last().toString() == DECIMAL_POINT)

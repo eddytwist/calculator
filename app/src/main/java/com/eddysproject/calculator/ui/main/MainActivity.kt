@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding.nine.setOnClickListener { addNum("9") }
         binding.dec.setOnClickListener { addDot(DECIMAL_POINT) }
         binding.addition.setOnClickListener { addOperation(ADDITION) }
-        binding.minus.setOnClickListener { addOperation(SUBTRACTION) }
+        binding.subtraction.setOnClickListener { addOperation(SUBTRACTION) }
         binding.multiplication.setOnClickListener { addOperation(MULTIPLICATION) }
         binding.division.setOnClickListener { addOperation(DIVISION) }
         binding.equal.setOnClickListener { viewModel.onEqual() }
