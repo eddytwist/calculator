@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.eddysproject.calculator.db.data.History
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
+import java.text.DecimalFormat
 
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
@@ -15,6 +16,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     private var displayText: String = ZERO
     private var lastOperation = EMPTY
     private var countDecs = 0
+    private val df = DecimalFormat("#,###.######")
 
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data
@@ -26,7 +28,6 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     val histories: LiveData<List<History>> = _histories
 
     fun addOperation(s: String) {
-
         if (lastOperation.isNotEmpty()) {
                 checkDisplayText(displayText)
                 lastOperation = s
@@ -37,7 +38,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 displayText = displayText.dropLast(1) + s
             }
         }
-        else {
+        else if (displayText.last().isDigit() || displayText.last().toString() == DECIMAL_POINT){
             if (displayText.last().toString() == DECIMAL_POINT)
                 displayText += ZERO
             displayText += s
@@ -86,9 +87,12 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     }
 
     fun onBack() {
+        displayText = displayText.replace(",","")
         if (displayText.length != 1) {
             if (!displayText.last().isDigit())
                 countDecs--
+            if (displayText.last().toString() == lastOperation)
+                lastOperation = EMPTY
             displayText = displayText.dropLast(1)
         } else
             onAc()
@@ -115,16 +119,17 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     }
 
     private fun checkDisplayText(s: String) {
+        val replacedS = s.replace(",","")
         try {
-            val ex = ExpressionBuilder(s).build()
+            val ex = ExpressionBuilder(replacedS).build()
             val result = ex.evaluate()
             val longRes = result.toLong()
             if (result == longRes.toDouble()) {
-                displayText = longRes.toString()
+                displayText = df.format(result).toString()
                 countDecs = 0
             }
             else {
-                displayText = String.format("%.5f", result)
+                displayText = df.format(result).toString()
                 countDecs = 1
             }
             if (s.last().toString() == DECIMAL_POINT)
