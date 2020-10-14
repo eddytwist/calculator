@@ -10,6 +10,11 @@ import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.text.DecimalFormat
 
+/*
+* 1) Make toast when /0
+* 2) Add Horizontal Scroll in textView
+* */
+
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
