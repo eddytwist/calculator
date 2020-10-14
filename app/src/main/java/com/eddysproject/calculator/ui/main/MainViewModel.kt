@@ -9,6 +9,8 @@ import com.eddysproject.calculator.db.data.History
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 /*
 * 1) Make toast when /0
@@ -21,7 +23,8 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     private var displayText: String = ZERO
     private var lastOperation = EMPTY
     private var countDecs = 0
-    private val df = DecimalFormat("#,###.######")
+    private val symbols = DecimalFormatSymbols(Locale.US);
+    private val df = DecimalFormat("#,###.######", symbols)
 
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data
