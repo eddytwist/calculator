@@ -24,7 +24,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     private var lastOperation = EMPTY
     private var countDecs = 0
     private val symbols = DecimalFormatSymbols(Locale.US);
-    private val df = DecimalFormat("#,###.######", symbols)
+    private val df = DecimalFormat("#,###.#######", symbols)
 
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data
