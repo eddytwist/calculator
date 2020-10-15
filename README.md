@@ -1,5 +1,6 @@
 # Calculator
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e26c9ed24ceb43c099a28e6d93a380a3)](https://app.codacy.com/gh/eddytwist/calculator?utm_source=github.com&utm_medium=referral&utm_content=eddytwist/calculator&utm_campaign=Badge_Grade)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Feddytwist%2Fcalculator&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 Android application that performs arithmetic operations on numbers.
